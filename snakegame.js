@@ -61,7 +61,11 @@ function Snake(x, y, direction, head_color, tail_color) {
         if (this.direction != right && this.direction != left) {
             this.direction = left;
             this.x -= speed * block;
+<<<<<<< HEAD
             if (fp.x === this.x && fp.y === this.y && this.tail.length > 0 ) {
+=======
+            if (fp.x === this.x && fp.y === this.y) {
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
                 foodEated = true;
                 fp = generateFood(this.tail);
             }
@@ -71,27 +75,45 @@ function Snake(x, y, direction, head_color, tail_color) {
         if (this.direction != down && this.direction != up) {
             this.direction = up;
             this.y -= speed * block;
+<<<<<<< HEAD
             if (fp.x === this.x && fp.y === this.y  && this.tail.length > 0 ) {
+=======
+            if (fp.x === this.x && fp.y === this.y) {
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
                 foodEated = true;
                 fp = generateFood(this.tail);
             }
         }
     };
     this.rightClick = function() {
+<<<<<<< HEAD
         if (this.direction != left && this.direction != right ) {
             this.direction = right;
             this.x += speed * block;
             if (fp.x === this.x && fp.y === this.y && this.tail.length > 0) {
+=======
+        if (this.direction != left && this.direction != right) {
+            this.direction = right;
+            this.x += speed * block;
+            if (fp.x === this.x && fp.y === this.y) {
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
                 foodEated = true;
                 fp = generateFood(this.tail);
             }
         }
     };
     this.downClick = function() {
+<<<<<<< HEAD
         if (this.direction != up && this.direction != down ) {
             this.direction = down;
             this.y += speed * block;
             if (fp.x === this.x && fp.y === this.y && this.tail.length > 0) {
+=======
+        if (this.direction != up && this.direction != down) {
+            this.direction = down;
+            this.y += speed * block;
+            if (fp.x === this.x && fp.y === this.y) {
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
                 foodEated = true;
                 fp = generateFood(this.tail);
             }
@@ -125,7 +147,17 @@ function Snake(x, y, direction, head_color, tail_color) {
         }
 
 
+<<<<<<< HEAD
         if (this.tail.length > 0) {
+=======
+        console.log(this.tail.length);
+
+        if (this.tail.length === 0) {
+            console.log('length is 0');
+        }
+        if (this.tail.length > 0) {
+            console.log('len:' + this.tail.length + ' 0el:' + this.tail[0]);
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
             this.tail[0].x = this.x;
             this.tail[0].y = this.y;
         }
@@ -240,7 +272,11 @@ function moveSnake(e) {
 }
 
 
+<<<<<<< HEAD
 let fps = 30;
+=======
+let fps = 15;
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
 let now;
 let then = Date.now();
 let interval = 1000 / fps;
@@ -258,8 +294,13 @@ function screen() {
     if (delta > interval) { //Used to set the frame rate...
         then = now - (delta % interval);
         c.clearRect(0, 0, maxx, maxy);
+<<<<<<< HEAD
         //grid
      /*   c.beginPath();
+=======
+    /*    //grid
+        c.beginPath();
+>>>>>>> 9e2d27a6e3ec2eb13c2b426400243ba4d91fa57c
         c.moveTo(0, 0);
         let x = maxx,
             y = 0;
