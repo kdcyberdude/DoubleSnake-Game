@@ -46,7 +46,6 @@ let generateFood = function(tailArray) {
 let arr = [];
 let fp = generateFood(arr);
 
-
 function Snake(x, y, direction, head_color, tail_color) {
     this.x = x;
     this.y = y;
@@ -57,44 +56,46 @@ function Snake(x, y, direction, head_color, tail_color) {
 
     let foodEated = false;
 
+    this.addCoordianateOnFoodEat = function(){
+        //eat food
+        if (fp.x === this.x && fp.y === this.y) {
+            if (this.tail.length === 0) {
+                if (this.direction === left) this.tail.push(coordinate(fp.x + block, fp.y));
+                else if (this.direction === right) this.tail.push(coordinate(fp.x - block, fp.y));
+                else if (this.direction === up) this.tail.push(coordinate(fp.x, fp.y + block));
+                else if (this.direction === down) this.tail.push(coordinate(fp.x, fp.y - block));
+            }
+            else foodEated = true;
+            fp = generateFood(this.tail);
+        }
+    }
+
     this.leftClick = function() {
         if (this.direction != right && this.direction != left) {
             this.direction = left;
             this.x -= speed * block;
-            if (fp.x === this.x && fp.y === this.y && this.tail.length > 0 ) {
-                foodEated = true;
-                fp = generateFood(this.tail);
-            }
+            this.addCoordianateOnFoodEat();
         }
     };
     this.upClick = function() {
         if (this.direction != down && this.direction != up) {
             this.direction = up;
             this.y -= speed * block;
-            if (fp.x === this.x && fp.y === this.y  && this.tail.length > 0 ) {
-                foodEated = true;
-                fp = generateFood(this.tail);
-            }
+            this.addCoordianateOnFoodEat();
         }
     };
     this.rightClick = function() {
         if (this.direction != left && this.direction != right ) {
             this.direction = right;
             this.x += speed * block;
-            if (fp.x === this.x && fp.y === this.y && this.tail.length > 0) {
-                foodEated = true;
-                fp = generateFood(this.tail);
-            }
+            this.addCoordianateOnFoodEat();
         }
     };
     this.downClick = function() {
         if (this.direction != up && this.direction != down ) {
             this.direction = down;
             this.y += speed * block;
-            if (fp.x === this.x && fp.y === this.y && this.tail.length > 0) {
-                foodEated = true;
-                fp = generateFood(this.tail);
-            }
+            this.addCoordianateOnFoodEat();
         }
     };
     this.draw = function() {
@@ -106,10 +107,7 @@ function Snake(x, y, direction, head_color, tail_color) {
     };
 
     this.update = function() {
-        console.log(this.tail.length);
-
         let lastCordinate;
-
         //tail coordinates
         if (foodEated === true && this.tail.length > 0) {
             let lastIndex = this.tail.length - 1;
@@ -118,12 +116,10 @@ function Snake(x, y, direction, head_color, tail_color) {
             lastCordinate = { x, y };
         }
 
-
         for (let i = this.tail.length - 2; i >= 0; i--) {
             this.tail[i + 1].x = this.tail[i].x;
             this.tail[i + 1].y = this.tail[i].y;
         }
-
 
         if (this.tail.length > 0) {
             this.tail[0].x = this.x;
@@ -134,28 +130,12 @@ function Snake(x, y, direction, head_color, tail_color) {
             foodEated = false;
         }
 
-
-
         if (this.direction === left) this.x -= speed * block;
         else if (this.direction === right) this.x += speed * block;
         else if (this.direction === up) this.y -= speed * block;
         else if (this.direction === down) this.y += speed * block;
 
-
-        //eat food
-        if (fp.x === this.x && fp.y === this.y) {
-            if (this.tail.length <= 0) {
-                if (this.direction === left) this.tail.push(coordinate(fp.x + block, fp.y));
-                else if (this.direction === right) this.tail.push(coordinate(fp.x - block, fp.y));
-                else if (this.direction === up) this.tail.push(coordinate(fp.x, fp.y + block));
-                else if (this.direction === down) this.tail.push(coordinate(fp.x, fp.y - block));
-            }
-            else {
-                foodEated = true;
-            }
-            fp = generateFood(this.tail);
-        }
-
+        this.addCoordianateOnFoodEat();
         if (this.x >= maxx) {
             this.x = 0;
         }
@@ -169,6 +149,7 @@ function Snake(x, y, direction, head_color, tail_color) {
         else if (this.y >= maxy) {
             this.y = 0;
         }
+        this.addCoordianateOnFoodEat();
 
         //self touch check
         for (let i = 0; i < this.tail.length; ++i) {
@@ -183,11 +164,8 @@ function Snake(x, y, direction, head_color, tail_color) {
             c.fillStyle = this.tail_color;
             c.fill();
         }
-
-
         this.draw();
     };
-
 }
 
 let s1p = coordinate((midx + (maxx / 3)) / block, midy / block);
@@ -198,9 +176,8 @@ let s2p = coordinate((maxx / 3) / block, midy / block);
 s2p.x = block * (Math.floor(s2p.x));
 s2p.y = block * (Math.floor(s2p.y));
 
-let snakeA = new Snake(s1p.x, s1p.y, right, 'red', 'blue');
-let snakeB = new Snake(s2p.x, s2p.y, up, 'green', 'black');
-
+let snakeA = new Snake(s1p.x, s1p.y, right, 'red', 'grey');
+let snakeB = new Snake(s2p.x, s2p.y, up, 'green', 'cyan');
 
 function moveSnake(e) {
     var code = e.keyCode;
@@ -215,7 +192,7 @@ function moveSnake(e) {
             snakeA.rightClick();
             break; //Right key
         case 40:
-            snakeA.downClick();;
+            snakeA.downClick();
             break; //Down key
         case 65:
             snakeB.leftClick();
@@ -239,16 +216,13 @@ function moveSnake(e) {
     }
 }
 
-
 let fps = 15;
 let now;
 let then = Date.now();
 let interval = 1000 / fps;
 let delta;
 
-
 function screen() {
-
     if (!pause) {
         requestAnimationFrame(screen);
     }
@@ -258,24 +232,6 @@ function screen() {
     if (delta > interval) { //Used to set the frame rate...
         then = now - (delta % interval);
         c.clearRect(0, 0, maxx, maxy);
-        //grid
-     /*   c.beginPath();
-        c.moveTo(0, 0);
-        let x = maxx,
-            y = 0;
-        while (y <= maxy) {
-            c.lineTo(x, y);
-            y += block;
-            c.moveTo(0, y);
-        }
-        c.moveTo(0, 0);
-        x = 0, y = maxy;
-        while (x <= maxx) {
-            c.lineTo(x, y);
-            x += block;
-            c.moveTo(x, 0);
-        }
-        c.stroke();*/
 
         //snake
         c.beginPath();
@@ -286,12 +242,7 @@ function screen() {
         c.fillStyle = 'rgba(0,70,100,255)';
         snakeA.update();
         snakeB.update();
-
     }
-
 }
-
-
-
 screen();
 // apache50 start directory
