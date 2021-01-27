@@ -1,11 +1,11 @@
 # DoubleSnake-Game
-Two Player Snake Game on Same Computer.<br />
-First Snake Controls -<br />
+## Two Player Snake Game on Same Computer.<br />
+### First Snake Controls -<br />
   W: UP<br />
   D: Right<br />
   S: Down<br />
   A: Left<br />
-Second Snake Controls -<br />
+### Second Snake Controls -<br />
   up-arrow:<br />
   down-arrow:<br />
   left-arrow:<br />
