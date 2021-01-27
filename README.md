@@ -15,4 +15,4 @@ Fun Fact: Try to play with two hands... It's really challenging!!
 
 
 
-[![Watch the video](https://img.youtube.com/vi/PJeo4UOhPHQ/hqdefault.jpg)](https://youtu.be/PJeo4UOhPHQ)
+[![Watch the video](playing.gif)](https://youtu.be/PJeo4UOhPHQ)
