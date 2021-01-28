@@ -6,7 +6,7 @@ const left = 1,
       up = 3,
       down = 4;
 const block = 30;
-var speed = 0.5;
+var speed = 1;
 let pause = false;
 
 window.addEventListener('keydown', this.moveSnake, false);
